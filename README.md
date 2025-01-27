@@ -46,6 +46,7 @@ public class YourClass : MonoBehaviour, IEventListener<YourMessage>{
 }
 ```
 
+
 ### [Broadcast message](https://github.com/shlifedev/unity-event-system/blob/main/GameEvent/Example/Scripts/GameEntity.cs)
 ```cs
      EventBus.Broadcast(new YourMessage(){Message="hi"});
