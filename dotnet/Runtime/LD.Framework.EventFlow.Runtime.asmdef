@@ -1,6 +1,6 @@
 {
-    "name": "LD.Framework.GameEvent.Runtime",
-    "rootNamespace": "",
+    "name": "LD.Framework.EventFlow.Runtime",
+    "rootNamespace": "LD.Framework.EventFlow",
     "references": [
         "GUID:f51ebe6a0ceec4240a699833d6309b23"
     ],
