@@ -1,8 +1,6 @@
-using System;
 using Cysharp.Threading.Tasks;
-using UnityEngine;
 
-namespace LD.Framework
+namespace LD.Framework.EventFlow
 { 
     /// <summary>
     /// Marking interface to facilitate listener registration.

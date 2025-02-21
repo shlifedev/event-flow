@@ -1,6 +1,6 @@
 using System;
 
-namespace LD.Framework
+namespace LD.Framework.EventFlow
 {
     public static class EventBusReflectionUtility
     {

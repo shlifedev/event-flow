@@ -1,4 +1,4 @@
-namespace LD.Framework
+namespace LD.Framework.EventFlow
 {
     /// <summary>
     /// Interface for Event Message

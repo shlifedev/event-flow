@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace LD.Framework
+namespace LD.Framework.EventFlow
 {
     public interface IEventObserver<TListener> where TListener : IEventListenerMarker
     {

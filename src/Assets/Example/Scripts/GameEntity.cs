@@ -5,7 +5,7 @@ using LD.Framework.EventFlow;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace unity_event_system.GameEvent.Example.Scripts.Messages
+namespace Test
 {
     public class GameEntity : MonoBehaviour
     {

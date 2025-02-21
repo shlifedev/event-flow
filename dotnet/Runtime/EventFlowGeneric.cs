@@ -1,10 +1,4 @@
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq; 
-using UnityEngine;
-using Component = System.ComponentModel.Component;
-
-namespace LD.Framework
+namespace LD.Framework.EventFlow
 {
     /// <summary>
     /// Classes to manage events for each message 

@@ -1,6 +1,6 @@
 using Cysharp.Threading.Tasks;
 
-namespace LD.Framework
+namespace LD.Framework.EventFlow
 {
     public interface IEventEmitter<TMessage> where TMessage : IEventMessage
     {

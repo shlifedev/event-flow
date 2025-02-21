@@ -2,12 +2,11 @@ using System;
 using Cysharp.Threading.Tasks;
 using LD.Framework;
 using LD.Framework.EventFlow;
-using TMPro;
-using unity_event_system.GameEvent.Example.Scripts.Messages;
+using TMPro; 
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace unity_event_system.GameEvent.Example.Scripts
+namespace Test
 {
     public class HealthBarUI : MonoBehaviour,
         IEventListener<OnEntityDamagedMessage>,

@@ -1,4 +1,4 @@
-namespace LD.Framework
+namespace LD.Framework.EventFlow
 {
     public interface IEventPipeline<TListener, TMessage> : IEventObserver<TListener>, IEventEmitter<TMessage>
         where TListener : IEventListenerMarker
