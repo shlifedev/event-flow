@@ -1,0 +1,96 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+   
+
+    <ItemGroup>
+      <ProjectReference Include="..\SourceGenerator\SourceGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false"/>
+    </ItemGroup>
+
+   
+
+    <ItemGroup>
+      <Content Include="..\..\dotnet\Runtime\EventFlow.cs.meta">
+        <Link>Runtime\EventFlow.cs.meta</Link>
+      </Content>
+      <Content Include="..\..\dotnet\Runtime\EventFlowGeneric.cs.meta">
+        <Link>Runtime\EventFlowGeneric.cs.meta</Link>
+      </Content>
+      <Content Include="..\..\dotnet\Runtime\EventPipeline.cs.meta">
+        <Link>Runtime\EventPipeline.cs.meta</Link>
+      </Content>
+      <Content Include="..\..\dotnet\Runtime\IEventEmitter.cs.meta">
+        <Link>Runtime\IEventEmitter.cs.meta</Link>
+      </Content>
+      <Content Include="..\..\dotnet\Runtime\IEventListenerMarker.cs.meta">
+        <Link>Runtime\IEventListenerMarker.cs.meta</Link>
+      </Content>
+      <Content Include="..\..\dotnet\Runtime\IEventMessage.cs.meta">
+        <Link>Runtime\IEventMessage.cs.meta</Link>
+      </Content>
+      <Content Include="..\..\dotnet\Runtime\IEventObserver.cs.meta">
+        <Link>Runtime\IEventObserver.cs.meta</Link>
+      </Content>
+      <Content Include="..\..\dotnet\Runtime\IEventPipeline.cs.meta">
+        <Link>Runtime\IEventPipeline.cs.meta</Link>
+      </Content>
+      <Content Include="..\..\dotnet\Runtime\LD.Framework.EventFlow.Runtime.asmdef">
+        <Link>Runtime\LD.Framework.EventFlow.Runtime.asmdef</Link>
+      </Content>
+      <Content Include="..\..\dotnet\Runtime\LD.Framework.EventFlow.Runtime.asmdef.meta">
+        <Link>Runtime\LD.Framework.EventFlow.Runtime.asmdef.meta</Link>
+      </Content>
+      <Content Include="..\..\dotnet\Runtime\ReflectionUtils.cs.meta">
+        <Link>Runtime\ReflectionUtils.cs.meta</Link>
+      </Content>
+      <Content Include="..\..\dotnet\Runtime\Scheduler.meta">
+        <Link>Runtime\Scheduler.meta</Link>
+      </Content>
+    </ItemGroup>
+
+   
+
+    <ItemGroup>
+      <Compile Include="..\..\dotnet\Runtime\EventFlow.cs">
+        <Link>Runtime\EventFlow.cs</Link>
+      </Compile>
+      <Compile Include="..\..\dotnet\Runtime\EventFlowGeneric.cs">
+        <Link>Runtime\EventFlowGeneric.cs</Link>
+      </Compile>
+      <Compile Include="..\..\dotnet\Runtime\EventPipeline.cs">
+        <Link>Runtime\EventPipeline.cs</Link>
+      </Compile>
+      <Compile Include="..\..\dotnet\Runtime\IEventEmitter.cs">
+        <Link>Runtime\IEventEmitter.cs</Link>
+      </Compile>
+      <Compile Include="..\..\dotnet\Runtime\IEventListenerMarker.cs">
+        <Link>Runtime\IEventListenerMarker.cs</Link>
+      </Compile>
+      <Compile Include="..\..\dotnet\Runtime\IEventMessage.cs">
+        <Link>Runtime\IEventMessage.cs</Link>
+      </Compile>
+      <Compile Include="..\..\dotnet\Runtime\IEventObserver.cs">
+        <Link>Runtime\IEventObserver.cs</Link>
+      </Compile>
+      <Compile Include="..\..\dotnet\Runtime\IEventPipeline.cs">
+        <Link>Runtime\IEventPipeline.cs</Link>
+      </Compile>
+      <Compile Include="..\..\dotnet\Runtime\ReflectionUtils.cs">
+        <Link>Runtime\ReflectionUtils.cs</Link>
+      </Compile>
+    </ItemGroup>
+
+   
+
+    <ItemGroup>
+      <Folder Include="..\..\dotnet\Runtime\Scheduler\">
+        <Link>Runtime\Scheduler</Link>
+      </Folder>
+    </ItemGroup>
+</Project>

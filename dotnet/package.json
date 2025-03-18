@@ -2,7 +2,7 @@
   "name": "com.shlifedev.eventflow",
   "displayName": "EventFlow",
   "description": "This package support non-gc unity event broadcast system.",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "unity": "2018.2",
   "license": "MIT",
   "author": {

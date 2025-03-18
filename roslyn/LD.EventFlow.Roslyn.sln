@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventFlow.Ref", "EventFlow.Ref\EventFlow.Ref.csproj", "{EF90EA17-43FC-41CC-876D-A63D646C9FE5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceGenerator", "SourceGenerator\SourceGenerator\SourceGenerator.csproj", "{DFA1636D-9841-4535-B515-014891CB9830}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EF90EA17-43FC-41CC-876D-A63D646C9FE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF90EA17-43FC-41CC-876D-A63D646C9FE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF90EA17-43FC-41CC-876D-A63D646C9FE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF90EA17-43FC-41CC-876D-A63D646C9FE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFA1636D-9841-4535-B515-014891CB9830}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFA1636D-9841-4535-B515-014891CB9830}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFA1636D-9841-4535-B515-014891CB9830}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFA1636D-9841-4535-B515-014891CB9830}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

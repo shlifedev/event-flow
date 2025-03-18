@@ -156,9 +156,13 @@ namespace LD.Framework.EventFlow
         /// </summary> 
         public static void Register(object target)
         {
+ #if UNITY_EDITOR
             UnityEngine.Profiling.Profiler.BeginSample("EventFlow.Register");
+#endif
             RawCall(true, target);
+#if UNITY_EDITOR
             UnityEngine.Profiling.Profiler.EndSample();
+#endif
         }
 
         /// <summary>
@@ -166,9 +170,13 @@ namespace LD.Framework.EventFlow
         /// </summary> 
         public static void Unregister(object target)
         {
+#if UNITY_EDITOR
             UnityEngine.Profiling.Profiler.BeginSample("EventFlow.Unregister");
+#endif
             RawCall(false, target);
+#if UNITY_EDITOR
             UnityEngine.Profiling.Profiler.EndSample();
+#endif
         }
     }
 }
