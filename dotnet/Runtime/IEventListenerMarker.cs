@@ -1,5 +1,3 @@
-using Cysharp.Threading.Tasks;
-
 namespace LD.Framework.EventFlow
 { 
     /// <summary>
@@ -8,15 +6,15 @@ namespace LD.Framework.EventFlow
     public interface IEventListenerMarker
     { 
          
-    }
-
+    } 
+    
     /// <summary>
     /// A listener to listen for events
     /// In this case, convert the args directly and use them.
     /// The implementation of Dispose is mandatory to call when unsubscribing.
     /// </summary>
-    public interface IEventListener<TArgs> : IEventListenerMarker where TArgs : IEventMessage
+    public interface IEventListener<in TArgs> : IEventListenerMarker where TArgs : IEventMessage
     {
-        UniTask OnEvent(TArgs args);
+        void OnEvent(TArgs args);
     } 
 }

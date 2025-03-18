@@ -42,7 +42,7 @@ namespace Test
             this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 0.1f, this.transform.position.z);
         }
 
-        public UniTask OnEvent(OnEntityDamagedMessage args)
+        public void OnEvent(OnEntityDamagedMessage args)
         {
             Debug.Log($"[HealthBarUI] {args.Target.name} took damage => {args.PreviousHealth - args.CurrentHealth}");
             if (args.Target == this.Target)
@@ -50,19 +50,17 @@ namespace Test
                 FillImage.fillAmount = (float)Target.Health / Target.MaxHealth;
                 Text.text = args.CurrentHealth.ToString("0.0");
             } 
-            return UniTask.CompletedTask;
         }
 
 
     
-        public UniTask OnEvent(OnEntityDestroyed args)
+        public void OnEvent(OnEntityDestroyed args)
         {
             if (args.Target == this.Target)
             {
                 Debug.Log($"[HealthBarUI] {args.Target.name} has been destroyed");
                 Destroy(this.gameObject);
             }
-            return UniTask.CompletedTask;
         }
     }
 }

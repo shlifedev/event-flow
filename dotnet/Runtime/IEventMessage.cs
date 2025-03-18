@@ -7,11 +7,4 @@ namespace LD.Framework.EventFlow
     {
         
     }
-
-    public interface IEventMessage<TSender>
-    {
-        TSender Sender { get; }
-    }
-    
-    
 }

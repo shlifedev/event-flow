@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace LD.Framework.EventFlow
@@ -7,18 +6,18 @@ namespace LD.Framework.EventFlow
     /// <summary>
     /// Objects that send and register game events 
     /// </summary>
-    public class EventPipeline<TMessage> : IEventPipeline<IEventListenerMarker, TMessage> 
+    public sealed class EventPipeline<TMessage> : IEventPipeline<IEventListenerMarker, TMessage> 
         where TMessage : IEventMessage
     {
         #region Fields  
         /// <summary>
         /// Listener Objs
         /// </summary>
-        protected virtual List<IEventListenerMarker> Listeners { get; } = new List<IEventListenerMarker>(); 
+        private List<IEventListenerMarker> Listeners { get; } = new List<IEventListenerMarker>(); 
         /// <summary>
         /// Listener Hashs
         /// </summary>
-        protected virtual HashSet<IEventListenerMarker> RegisteredHashMap { get; } = new HashSet<IEventListenerMarker>();
+        private HashSet<IEventListenerMarker> RegisteredHashMap { get; } = new HashSet<IEventListenerMarker>();
         #endregion
         #region Functions
 
@@ -51,6 +50,7 @@ namespace LD.Framework.EventFlow
             return RegisteredHashMap.Contains(listener);
         }
 
+        
         public void ClearListener()
         {
             Listeners.Clear();
@@ -69,11 +69,16 @@ namespace LD.Framework.EventFlow
             Listeners.Remove(listener); 
         } 
         
+        
         /// <summary>
         /// Emit Message to all listeners
+        /// kr : 모든 리스너에게 메시지를 전송합니다.
         /// </summary> 
-        public virtual UniTask EmitAll<TEventArgs>(TEventArgs args) where TEventArgs :  TMessage
-        {  
+        public void EmitAll<TEventArgs>(TEventArgs args) where TEventArgs :  TMessage
+        {
+            if (Listeners.Count == 0)
+                return; 
+            
             for (int i=Listeners.Count-1; i>=0; --i)
             { 
                 var listener = Listeners[i]; 
@@ -84,15 +89,41 @@ namespace LD.Framework.EventFlow
                 }
                 else 
                 {  
-                    return convert.OnEvent(args);
+                    convert.OnEvent(args);
                 }
             }  
-            return UniTask.CompletedTask;
+            
         } 
-         
-        public virtual UniTask BroadcastTo<TEventArgs>(TEventArgs args, IEventListener<TEventArgs> target) where TEventArgs :  TMessage
+
+        
+        /// <summary>
+        /// Emit Message to all listeners
+        /// kr : 모든 리스너에게 메시지를 전송합니다.
+        /// </summary> 
+        public void EmitAllForParrel<TEventArgs>(TEventArgs args) where TEventArgs :  TMessage
+        {
+            if (Listeners.Count == 0)
+                return; 
+            
+            for (int i=Listeners.Count-1; i>=0; --i)
+            { 
+                var listener = Listeners[i]; 
+                var convert = listener as IEventListener<TEventArgs>;
+                if (convert == null)
+                {
+                    Debug.LogError($"{nameof(IEventListenerMarker)}  must be explicitly implemented with a generic argument.");
+                }
+                else 
+                {  
+                    convert.OnEvent(args);
+                }
+            }  
+            
+        } 
+
+        public void BroadcastTo<TEventArgs>(TEventArgs args, IEventListener<TEventArgs> target) where TEventArgs :  TMessage
         { 
-                return target.OnEvent(args);
+                 target.OnEvent(args);
         }    
         #endregion
     }
