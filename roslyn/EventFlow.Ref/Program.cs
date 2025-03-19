@@ -32,4 +32,7 @@ Task.Run(function: () =>
 
 LD.Framework.EventFlow.EventFlow.Unregister(chatApplication);
 
+
+
+
  

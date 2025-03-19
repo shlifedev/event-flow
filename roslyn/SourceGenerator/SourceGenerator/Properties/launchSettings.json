@@ -3,7 +3,7 @@
   "profiles": {
     "DebugRoslynSourceGenerator": {
       "commandName": "DebugRoslynComponent",
-      "targetProject": "../SourceGenerator.Sample/SourceGenerator.Sample.csproj"
+      "targetProject": "../../EventFlow.Ref/EventFlow.Ref.csproj"
     }
   }
 }

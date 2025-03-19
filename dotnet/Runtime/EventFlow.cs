@@ -28,6 +28,7 @@ namespace LD.Framework.EventFlow
 
         static void Initialize(object target)
         {
+            
             if (!_interFacesMap.ContainsKey(target.GetType()))
                 _interFacesMap.Add(target.GetType(), target.GetType().GetInterfaces());
             var interfaces = GetInterfaces(target);
