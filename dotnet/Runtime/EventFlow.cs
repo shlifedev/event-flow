@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace LD.Framework.EventFlow
 {
-    public static class EventFlow
+    public static partial class EventFlow
     {
         private static Dictionary<System.Type, Type[]> _interFacesMap = new Dictionary<Type, Type[]>();
         private static Dictionary<System.Type, List<Action<IEventListenerMarker>>> _registerMethodMap = new();

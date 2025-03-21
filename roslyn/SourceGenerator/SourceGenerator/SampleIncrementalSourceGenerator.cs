@@ -1,19 +1,18 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Text;
+using LD.Utility;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
 
 
 namespace SourceGenerator;
 
-
-/*
- * 수집항목
- * IEventListener<TMessage> 를 상속받는 모든 리스너 클래스
- */
+ 
 
 /// <summary>
 /// A sample source generator that creates a custom report based on class properties. The target class should be annotated with the 'Generators.ReportAttribute' attribute.
@@ -24,56 +23,54 @@ public class SampleIncrementalSourceGenerator : IIncrementalGenerator
 {
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
-                                                
-        context.RegisterPostInitializationOutput(ctx =>
-        {
-            ctx.AddSource("test.g.cs", SourceText.From($@" 
-
-public class SampleAttribute : System.Attribute{{
-
-}}
-
-", Encoding.UTF8));
-        });
-
-
-        IncrementalValuesProvider<string> findClasses = context.SyntaxProvider
-            .CreateSyntaxProvider(
-                predicate: static (s, _) =>
-                {
-                    return s is ClassDeclarationSyntax;
-                },
-                transform: static (ctx, _) =>
-                {
-                    var classDeclaration = (ClassDeclarationSyntax)ctx.Node;
-                    var semanticModel = ctx.SemanticModel;
-                    var classSymbol = semanticModel.GetDeclaredSymbol(classDeclaration) as INamedTypeSymbol;
-                    var eventListener = classSymbol.AllInterfaces.All(x=>x.Name == "IEventListener" && x.IsGenericType);
-                    
-
-                    Console.WriteLine($"{classSymbol.Name}  "+classSymbol.AllInterfaces
-                        .Select(static x => x.Name)
-                        .Aggregate(new StringBuilder(), (sb, x) => sb.Append(x + ", ")));
-                    return "";
-                    
-                    // foreach (var interfaceSymbol in classSymbol.al)
-                    // {
-                    //     if (interfaceSymbol.Name == "IEventListener" && 
-                    //         interfaceSymbol.IsGenericType)
-                    //     {
-                    //         return classDeclaration.Identifier.Text;
-                    //     }
-                    // }
-                    // if (classSymbol == null)
-                    //     return string.Empty;
-                    //
-                })                                  
-            .Where(static x => !string.IsNullOrWhiteSpace(x));
-
-        context.RegisterSourceOutput(findClasses,
-            static (spc, source) =>
+        PostAttributes.CreateAttributes(context);
+        
+ 
+        var listenersCollector = context.SyntaxProvider
+            .ForAttributeWithMetadataName("LD.EventFlow.Attributes.EventFlowListenerAttribute", (node, token) =>
             {
-                Console.WriteLine(source);
-            });
+                return node is TypeDeclarationSyntax;
+            }, (syntaxContext, token) =>
+            {  
+                
+                var namedsymbol = syntaxContext.TargetSymbol as INamedTypeSymbol;
+                var typeDeclaration = syntaxContext.TargetNode as TypeDeclarationSyntax; 
+                bool isPartial = typeDeclaration.Modifiers
+                    .Any(m => m.IsKind(SyntaxKind.PartialKeyword));
+                
+                if (namedsymbol != null)
+                {
+                    var messageTypeArg = namedsymbol.AllInterfaces.Where(x => x.Name == "IEventListener")
+                        .Where(x => x.IsGenericType);
+
+
+                    var typeArgsmentsDisplayName =
+                        messageTypeArg.Select(x => x.TypeArguments.First().ToDisplayString());
+                    var typeArgsmentsDisplayNameEquatableArray =
+                        new EquatableArray<string>(typeArgsmentsDisplayName.ToArray()); 
+                    return new ListenerGeneratorContext(namedsymbol.ToDisplayString(), isPartial,
+                        typeArgsmentsDisplayNameEquatableArray);
+                }
+
+                return default;
+            }).WithTrackingName("EventFlowListenerCollected");
+
+ 
+        context.RegisterSourceOutput(listenersCollector.Collect(), ((productionContext, array) =>
+        {
+            foreach (var item in array)
+            {
+                if (item.IsPartial == false)
+                {
+                 
+                }
+                else
+                { 
+                    productionContext.AddSource($"{item.ListenerName}_Register.g.cs", "//"+item.MessageTypesWithFullName);
+                }
+            }
+        }));
+
+
     }
     }
