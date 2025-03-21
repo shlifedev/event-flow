@@ -62,8 +62,6 @@ public partial class EventFlow{{
         {{ 
           {unregisterCodeLines}
         }}
-}}
-}}
 ");
                 }
             }

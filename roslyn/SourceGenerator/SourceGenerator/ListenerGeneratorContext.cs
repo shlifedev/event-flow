@@ -4,6 +4,7 @@ using LD.Utility;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using CSharpExtensions = Microsoft.CodeAnalysis.CSharpExtensions;
 
 namespace SourceGenerator;
 
@@ -24,7 +25,7 @@ public readonly record struct ListenerGeneratorContext
  
         
         this.IsPartial = typeDeclaration.Modifiers
-            .Any(m => m.IsKind(SyntaxKind.PartialKeyword)); 
+            .Any(m => CSharpExtensions.IsKind((SyntaxToken)m, SyntaxKind.PartialKeyword)); 
      
         this.DeclareSyntaxKind = typeDeclaration.Kind();
         
@@ -44,27 +45,4 @@ public readonly record struct ListenerGeneratorContext
         Console.WriteLine($"ListenerDisplayName: {ListenerDisplayName}, ListenerName: {ListenerName}, ListenerNameSpace: {ListenerNameSpace}, IsPartial: {IsPartial}, MessageTypesWithFullName: {MessageTypesWithFullName} " +
                           $" DeclareSyntaxKind: {DeclareSyntaxKind} "); 
     } 
-}
-public static class NodeUtility
-{ 
-    public static bool IsInheritListenerAttribute(ISymbol typeDeclarationSymbol)
-    {
-
-        var namedTypeSymbol = typeDeclarationSymbol as INamedTypeSymbol;
-        if (namedTypeSymbol == null)
-        {
-            Console.WriteLine(typeDeclarationSymbol.Name +" is not a named type symbol");
-            return false;
-        }
-
-        foreach(var interfaceType in namedTypeSymbol.AllInterfaces)
-        {  
-            
-            Console.WriteLine(interfaceType.Name);
-            Console.WriteLine(interfaceType.IsGenericType);
-            Console.WriteLine(interfaceType.TypeArguments.Length);
-        }
-        return false;
-
-    }
 }
