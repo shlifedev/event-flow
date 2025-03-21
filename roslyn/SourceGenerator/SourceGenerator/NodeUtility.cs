@@ -16,13 +16,12 @@ public readonly record struct ListenerGeneratorContext
     public SyntaxKind DeclareSyntaxKind { get; }
     public readonly EquatableArray<string> MessageTypesWithFullName { get; }
 
-    
-    
+    public IgnoreEquality<TypeDeclarationSyntax> OriginalClassDeclaration { get; }  
     public ListenerGeneratorContext(GeneratorAttributeSyntaxContext generatorAttributeSyntaxContext)
     {
         var namedsymbol = generatorAttributeSyntaxContext.TargetSymbol as INamedTypeSymbol;
         var typeDeclaration = generatorAttributeSyntaxContext.TargetNode as TypeDeclarationSyntax; 
-      
+ 
         
         this.IsPartial = typeDeclaration.Modifiers
             .Any(m => m.IsKind(SyntaxKind.PartialKeyword)); 
@@ -40,8 +39,10 @@ public readonly record struct ListenerGeneratorContext
             new EquatableArray<string>(typeArgsmentsDisplayName.ToArray());
         this.MessageTypesWithFullName = typeArgsmentsDisplayNameEquatableArray;
         
+        
+        this.OriginalClassDeclaration = typeDeclaration;
         Console.WriteLine($"ListenerDisplayName: {ListenerDisplayName}, ListenerName: {ListenerName}, ListenerNameSpace: {ListenerNameSpace}, IsPartial: {IsPartial}, MessageTypesWithFullName: {MessageTypesWithFullName} " +
-                          $" DeclareSyntaxKind: {DeclareSyntaxKind}"); 
+                          $" DeclareSyntaxKind: {DeclareSyntaxKind} "); 
     } 
 }
 public static class NodeUtility

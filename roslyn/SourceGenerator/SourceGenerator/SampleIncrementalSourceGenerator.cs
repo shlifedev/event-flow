@@ -42,7 +42,8 @@ public class SampleIncrementalSourceGenerator : IIncrementalGenerator
             {
                 if (item.IsPartial == false)
                 {
-                 
+                    productionContext.ReportDiagnostic(Diagnostic.Create(
+                        new DiagnosticDescriptor("EF0001", "EventFlowListener - Partial is missing.", $"All type declarations that use the EventFlowListener Attribute must include 'partial'. ", "Error", DiagnosticSeverity.Error, true), item.OriginalClassDeclaration.Value.GetLocation()));
                 }
                 else
                 {  

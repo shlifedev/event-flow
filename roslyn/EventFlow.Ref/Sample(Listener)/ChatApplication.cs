@@ -11,7 +11,7 @@ public struct MsgA : IEventMessage
 public struct MsgB : IEventMessage
 {
 }
-
+ 
 [EventFlowListener]
 public partial class ChatApplication : IEventListener<TestUserChatMessage>,
     IEventListener<MsgB>,
