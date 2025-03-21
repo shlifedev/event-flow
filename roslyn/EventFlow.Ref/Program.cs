@@ -1,7 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-using EventFlow.Ref.Listeners;
-using EventFlow.Ref.Messages;
+using LD.EventFlow.Ref.Listeners;
+using LD.EventFlow.Ref.Messages;
 
 Console.WriteLine("Start Chat Application");
 List<string> chatMessages = new List<string>()

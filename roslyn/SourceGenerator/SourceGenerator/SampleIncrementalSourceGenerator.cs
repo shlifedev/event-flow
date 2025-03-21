@@ -31,28 +31,8 @@ public class SampleIncrementalSourceGenerator : IIncrementalGenerator
             {
                 return node is TypeDeclarationSyntax;
             }, (syntaxContext, token) =>
-            {  
-                
-                var namedsymbol = syntaxContext.TargetSymbol as INamedTypeSymbol;
-                var typeDeclaration = syntaxContext.TargetNode as TypeDeclarationSyntax; 
-                bool isPartial = typeDeclaration.Modifiers
-                    .Any(m => m.IsKind(SyntaxKind.PartialKeyword));
-                
-                if (namedsymbol != null)
-                {
-                    var messageTypeArg = namedsymbol.AllInterfaces.Where(x => x.Name == "IEventListener")
-                        .Where(x => x.IsGenericType);
-
-
-                    var typeArgsmentsDisplayName =
-                        messageTypeArg.Select(x => x.TypeArguments.First().ToDisplayString());
-                    var typeArgsmentsDisplayNameEquatableArray =
-                        new EquatableArray<string>(typeArgsmentsDisplayName.ToArray()); 
-                    return new ListenerGeneratorContext(namedsymbol.ToDisplayString(), isPartial,
-                        typeArgsmentsDisplayNameEquatableArray);
-                }
-
-                return default;
+            {   
+                return new ListenerGeneratorContext(syntaxContext);
             }).WithTrackingName("EventFlowListenerCollected");
 
  
@@ -65,8 +45,25 @@ public class SampleIncrementalSourceGenerator : IIncrementalGenerator
                  
                 }
                 else
-                { 
-                    productionContext.AddSource($"{item.ListenerName}_Register.g.cs", "//"+item.MessageTypesWithFullName);
+                {  
+                    string registerCodeLines = string.Join("\n", item.MessageTypesWithFullName.Select(x => $"EventFlowGeneric<{x}>.Register(target);"));
+                    string unregisterCodeLines = string.Join("\n", item.MessageTypesWithFullName.Select(x => $"EventFlowGeneric<{x}>.Register(target);"));
+                    productionContext.AddSource($"{item.ListenerDisplayName}.EventFlow.g.cs", $@"
+using {item.ListenerNameSpace};
+namespace LD.Framework.EventFlow{{
+public partial class EventFlow{{
+        public static void Register({item.ListenerName} target)
+        {{ 
+            {registerCodeLines}
+        }}
+
+        public static void UnRegister({item.ListenerName} target)
+        {{ 
+          {unregisterCodeLines}
+        }}
+}}
+}}
+");
                 }
             }
         }));
