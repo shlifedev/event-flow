@@ -1,7 +1,6 @@
 {
   "dependencies": {
     "com.cysharp.unitask": "2.5.10",
-    "com.shlifedev.eventflow": "file:../../dotnet/",
     "com.unity.collab-proxy": "2.7.1",
     "com.unity.entities": "1.3.10",
     "com.unity.feature.2d": "2.0.1",

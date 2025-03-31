@@ -1,7 +1,5 @@
 
-using System;
-using LD.Framework;
-using LD.Framework.EventFlow;
+using LD.EventSystem;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -21,10 +19,10 @@ namespace Test
                 CurrentHealth = Health,
                 PreviousHealth = previousHealth,
                 Target = this
-            }; 
-            
-            EventFlow.Broadcast(damagedMessage);
+            };
 
+
+            EventFlow.Broadcast(damagedMessage);
             RandomKnockBack(); 
             if (Health <= 0)
             {
@@ -39,6 +37,7 @@ namespace Test
                 {
                     Target = this
                 };
+
                 EventFlow.Broadcast(destroyedMessage);
                 GameObject.DestroyImmediate(this.gameObject); 
         }

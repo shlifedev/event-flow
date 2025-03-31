@@ -1,18 +1,20 @@
-using System;
-using Cysharp.Threading.Tasks;
-using LD.Framework;
-using LD.Framework.EventFlow;
+
+using LD.EventSystem;
+using LD.EventSystem.Attributes;
 using TMPro; 
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Test
 {
-    public class HealthBarUI : MonoBehaviour,
+    [EventFlowListener]
+    public partial class HealthBarUI : MonoBehaviour,
         IEventListener<OnEntityDamagedMessage>,
         IEventListener<OnEntityDestroyed>
 
     {
+
+
         public GameEntity Target; 
         public TextMeshProUGUI Text;
         public Image FillImage;
@@ -26,14 +28,15 @@ namespace Test
              
         }
 
+
         private void OnDestroy()
         {
-            EventFlow.Unregister(this);
+          //  EventFlow.UnRegister(this);
         }
 
         private void OnDisable()
         {
-            EventFlow.Unregister(this);
+          //  EventFlow.UnRegister(this);
         }
 
         private void LateUpdate()

@@ -7,14 +7,6 @@
       "dependencies": {},
       "url": "https://package.openupm.com"
     },
-    "com.shlifedev.eventflow": {
-      "version": "file:../../dotnet/",
-      "depth": 0,
-      "source": "local",
-      "dependencies": {
-        "com.cysharp.unitask": "2.5.4"
-      }
-    },
     "com.unity.2d.animation": {
       "version": "10.1.4",
       "depth": 1,

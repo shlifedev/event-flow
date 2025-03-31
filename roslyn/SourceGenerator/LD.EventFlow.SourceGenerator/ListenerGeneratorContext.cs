@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using CSharpExtensions = Microsoft.CodeAnalysis.CSharpExtensions;
 
-namespace SourceGenerator;
+namespace LD.EventSystem.SourceGenerator;
 
 public readonly record struct ListenerGeneratorContext
 {

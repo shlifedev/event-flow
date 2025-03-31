@@ -10,7 +10,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
 
 
-namespace SourceGenerator;
+namespace LD.EventSystem.SourceGenerator;
 
  
 
@@ -23,11 +23,11 @@ public class SampleIncrementalSourceGenerator : IIncrementalGenerator
 {
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
-        PostAttributes.CreateAttributes(context);
+       // PostAttributes.CreateAttributes(context);
         
 
         var listenersCollector = context.SyntaxProvider
-            .ForAttributeWithMetadataName("LD.EventFlow.Attributes.EventFlowListenerAttribute", (node, token) =>
+            .ForAttributeWithMetadataName("LD.EventSystem.Attributes.EventFlowListenerAttribute", (node, token) =>
             {
                 return node is TypeDeclarationSyntax;
             }, (syntaxContext, token) =>
@@ -51,8 +51,8 @@ public class SampleIncrementalSourceGenerator : IIncrementalGenerator
                     string unregisterCodeLines = string.Join("\n", item.MessageTypesWithFullName.Select(x => $"EventFlowGeneric<{x}>.Register(target);"));
                     productionContext.AddSource($"{item.ListenerDisplayName}.EventFlow.g.cs", $@"
 using {item.ListenerNameSpace};
-namespace LD.Framework.EventFlow{{
-public partial class EventFlow{{
+    namespace LD.EventSystem{{
+public static partial class EventFlow{{
         public static void Register({item.ListenerName} target)
         {{ 
             {registerCodeLines}

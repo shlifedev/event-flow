@@ -1,7 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-using LD.EventFlow.Ref.Listeners;
-using LD.EventFlow.Ref.Messages;
+using LD.EventSystem.Ref.Listeners;
+using LD.EventSystem.Ref.Messages;
 
 Console.WriteLine("Start Chat Application");
 List<string> chatMessages = new List<string>()
@@ -17,12 +17,12 @@ List<string> chatMessages = new List<string>()
     "I love programming!",
 };
 ChatApplication chatApplication = new ChatApplication();
-LD.Framework.EventFlow.EventFlow.Register(chatApplication);
+LD.EventSystem.EventFlow.Register(chatApplication);
 Task.Run(function: () =>
 {
     while (true)
     { 
-        LD.Framework.EventFlow.EventFlow.Broadcast(new TestUserChatMessage()
+        LD.EventSystem.EventFlow.Broadcast(new TestUserChatMessage()
         {
             ChatMessage =chatMessages[Random.Shared.Next(chatMessages.Count)]
         });
@@ -30,7 +30,7 @@ Task.Run(function: () =>
     }
 }).Wait();
 
-LD.Framework.EventFlow.EventFlow.Unregister(chatApplication);
+LD.EventSystem.EventFlow.Unregister(chatApplication);
 
 
 

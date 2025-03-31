@@ -13,5 +13,10 @@ namespace DefaultNamespace
         {
             ChatMessage = chatMessage;
         }
+
+        void A()
+        {
+
+        }
     }
 }

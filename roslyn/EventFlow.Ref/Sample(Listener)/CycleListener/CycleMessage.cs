@@ -1,6 +1,6 @@
-using LD.Framework.EventFlow;
+using LD.EventSystem;
 
-namespace LD.EventFlow.Ref.Listeners.CycleTest;
+namespace LD.EventSystem.Ref.Listeners.CycleTest;
 
 public struct CycleMessage : IEventMessage
 {

@@ -8,9 +8,7 @@
 
         <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
         <IsRoslynComponent>true</IsRoslynComponent>
-
-        <RootNamespace>SourceGenerator</RootNamespace>
-        <PackageId>SourceGenerator</PackageId>
+        <PackageId>LD.EventFlow.SourceGenerator</PackageId>
     </PropertyGroup>
 
     <ItemGroup>
@@ -24,7 +22,7 @@
 
 
     <Target Name="CopyDll" AfterTargets="Build">
-        <Copy SourceFiles="$(TargetPath)" DestinationFolder="../../../src/Assets/Plugins" />
+        <Copy SourceFiles="$(TargetPath)" DestinationFolder="../../../src/Assets/EventFlow/Roslyn" />
     </Target>
 
 

@@ -1,6 +1,6 @@
-using LD.Framework.EventFlow;
+using LD.EventSystem;
 
-namespace LD.EventFlow.Ref.Messages;
+namespace LD.EventSystem.Ref.Messages;
 
 
 public partial struct TestUserChatMessage : IEventMessage
