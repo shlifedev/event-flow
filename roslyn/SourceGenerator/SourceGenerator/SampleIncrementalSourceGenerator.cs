@@ -25,7 +25,7 @@ public class SampleIncrementalSourceGenerator : IIncrementalGenerator
     {
         PostAttributes.CreateAttributes(context);
         
- 
+
         var listenersCollector = context.SyntaxProvider
             .ForAttributeWithMetadataName("LD.EventFlow.Attributes.EventFlowListenerAttribute", (node, token) =>
             {
@@ -62,6 +62,8 @@ public partial class EventFlow{{
         {{ 
           {unregisterCodeLines}
         }}
+}}
+}}
 ");
                 }
             }

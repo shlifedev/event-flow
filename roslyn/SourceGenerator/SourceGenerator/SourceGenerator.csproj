@@ -23,4 +23,9 @@
     </ItemGroup>
 
 
+    <Target Name="CopyDll" AfterTargets="Build">
+        <Copy SourceFiles="$(TargetPath)" DestinationFolder="../../../src/Assets/Plugins" />
+    </Target>
+
+
 </Project>
