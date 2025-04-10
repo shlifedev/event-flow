@@ -31,12 +31,12 @@ namespace Test
 
         private void OnDestroy()
         {
-          //  EventFlow.UnRegister(this);
+            EventFlow.UnRegister(this);
         }
 
         private void OnDisable()
         {
-          //  EventFlow.UnRegister(this);
+            EventFlow.UnRegister(this);
         }
 
         private void LateUpdate()

@@ -48,7 +48,7 @@ public class SampleIncrementalSourceGenerator : IIncrementalGenerator
                 else
                 {  
                     string registerCodeLines = string.Join("\n", item.MessageTypesWithFullName.Select(x => $"EventFlowGeneric<{x}>.Register(target);"));
-                    string unregisterCodeLines = string.Join("\n", item.MessageTypesWithFullName.Select(x => $"EventFlowGeneric<{x}>.Register(target);"));
+                    string unregisterCodeLines = string.Join("\n", item.MessageTypesWithFullName.Select(x => $"EventFlowGeneric<{x}>.UnRegister(target);"));
                     productionContext.AddSource($"{item.ListenerDisplayName}.EventFlow.g.cs", $@"
 using {item.ListenerNameSpace};
     namespace LD.EventSystem{{
