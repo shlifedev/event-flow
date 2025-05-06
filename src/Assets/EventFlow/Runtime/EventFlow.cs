@@ -28,7 +28,7 @@ namespace LD.EventSystem
 
         static void Initialize(object target)
         {
-            
+
             if (!_interFacesMap.ContainsKey(target.GetType()))
                 _interFacesMap.Add(target.GetType(), target.GetType().GetInterfaces());
             var interfaces = GetInterfaces(target);
@@ -52,7 +52,7 @@ namespace LD.EventSystem
 
                             var registerMethodInfo = genericEventBusType.GetMethod("Register",
                                 BindingFlags.Static | BindingFlags.Public);
-                            var unRegisterMethodInfo = genericEventBusType.GetMethod("Unregister",
+                            var unRegisterMethodInfo = genericEventBusType.GetMethod("UnRegister",
                                 BindingFlags.Static | BindingFlags.Public);
 
                             if (registerMethodInfo != null)
@@ -157,7 +157,7 @@ namespace LD.EventSystem
         /// </summary> 
         public static void Register(object target)
         {
- #if UNITY_EDITOR
+#if UNITY_EDITOR
             UnityEngine.Profiling.Profiler.BeginSample("EventFlow.Register");
 #endif
             RawCall(true, target);
