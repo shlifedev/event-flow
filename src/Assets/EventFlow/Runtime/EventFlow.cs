@@ -137,7 +137,7 @@ namespace LD.EventSystem
 
         /// <summary>
         /// 호출시 자동으로 생명주기로 관리할 인터페이스 메세지를 등록합니다.
-        /// </summary> 
+        /// </summary>
         public static void Broadcast<T>(T message) where T : IEventMessage
         {
             EventFlowGeneric<T>.EmitAll(message);
@@ -146,7 +146,7 @@ namespace LD.EventSystem
         /// <summary>
         /// 호출시 자동으로 인터페이스 메세지를 찾아 이벤트버스에서 더이상 관리하지 않게됩니다.
         /// </summary> 
-        public static void Unregister(IEventListenerMarker target)
+        public static void UnRegister(IEventListenerMarker target)
         {
             RawCall(false, target);
         }
@@ -169,10 +169,10 @@ namespace LD.EventSystem
         /// <summary>
         /// 호출시 자동으로 인터페이스 메세지를 찾아 이벤트버스에서 더이상 관리하지 않게됩니다.
         /// </summary> 
-        public static void Unregister(object target)
+        public static void Unegister(object target)
         {
 #if UNITY_EDITOR
-            UnityEngine.Profiling.Profiler.BeginSample("EventFlow.Unregister");
+            UnityEngine.Profiling.Profiler.BeginSample("EventFlow.UnRegister");
 #endif
             RawCall(false, target);
 #if UNITY_EDITOR

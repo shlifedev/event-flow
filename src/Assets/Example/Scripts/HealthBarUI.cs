@@ -22,7 +22,7 @@ namespace Test
         private void OnEnable()
         {
             // Register this class to listen to the event
-            EventFlow.Register(this);
+            LD.EventSystem.EventFlow.Register(this);
             FillImage.fillAmount = (float)Target.Health / Target.MaxHealth;
             Text.text = Target.Health.ToString("0.0");
              
@@ -31,12 +31,12 @@ namespace Test
 
         private void OnDestroy()
         {
-            EventFlow.UnRegister(this);
+            LD.EventSystem.EventFlow.UnRegister(this);
         }
 
         private void OnDisable()
         {
-            EventFlow.UnRegister(this);
+            LD.EventSystem.EventFlow.UnRegister(this);
         }
 
         private void LateUpdate()

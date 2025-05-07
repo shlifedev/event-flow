@@ -13,12 +13,12 @@ public class CubeUI : MonoBehaviour, IEventListener<CubeClickMessage>
 
     void OnEnable()
     {
-        EventFlow.Register(this); // Event Register
+        LD.EventSystem.EventFlow.Register(this); // Event Register
     }
 
     void OnDisable()
     {
-        EventFlow.Unregister(this); // Unregister
+        LD.EventSystem.EventFlow.UnRegister(this); // Unregister
     }
 
     public void OnEvent(CubeClickMessage args)
@@ -47,6 +47,6 @@ public class CubeUI : MonoBehaviour, IEventListener<CubeClickMessage>
             _managedCoroutine = null;
         }
 
-        EventFlow.Unregister(this);
+        EventFlow.UnRegister(this);
     }
 }

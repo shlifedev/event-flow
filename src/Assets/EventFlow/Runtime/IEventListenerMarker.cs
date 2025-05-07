@@ -1,13 +1,13 @@
 namespace LD.EventSystem
-{ 
+{
     /// <summary>
     /// Marking interface to facilitate listener registration.
     /// </summary>
     public interface IEventListenerMarker
-    { 
-         
-    } 
-    
+    {
+
+    }
+
     /// <summary>
     /// A listener to listen for events
     /// In this case, convert the args directly and use them.
@@ -16,5 +16,7 @@ namespace LD.EventSystem
     public interface IEventListener<in TArgs> : IEventListenerMarker where TArgs : IEventMessage
     {
         void OnEvent(TArgs args);
-    } 
+    }
+
+
 }

@@ -26,7 +26,7 @@ namespace Example2
 
         void OnDisable()
         {
-            EventFlow.Unregister(this); // Unregister
+            EventFlow.UnRegister(this); // Unregister
         }
 
         public void OnEvent(CubeClickMessage args)
@@ -55,7 +55,7 @@ namespace Example2
                 _managedCoroutine = null;
             }
 
-            EventFlow.Unregister(this);
+            EventFlow.UnRegister(this);
         }
     }
 }

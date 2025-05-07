@@ -1,45 +1,22 @@
+using System;
 using System.Collections.Generic;
 using LD.EventSystem;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
-
-public interface IPacket
-{
-    public int Id { get; } // some pck headers..
-    public int PacketType { get; } // pck types.. }
-}
-
-
-public struct ChatPacket : IPacket
-{
-    public int Id { get; }
-
-    public int PacketType => 1000;
-
-    public int sender;
-    public string message;
-
-}
-public struct NetworkChatReceivedMessage : IEventMessage
-{
-    public string Message { get; }
-    public string Sender { get; }
-    public NetworkChatReceivedMessage(ChatPacket packet)
-    {
-        Message = packet.message;
-        Sender = "Player" + packet.sender;
-    }
-}
 
 public class NetworkManager : MonoBehaviour
 {
     public Queue<IPacket> receivedPackets = new();
 
+    public static NetworkManager Instance;
 
-    void OnEnable()
+    private void Awake()
     {
-        EventFlow.Register(this);
+        Instance ??= GetComponent<NetworkManager>();
     }
+
+
     void Update()
     {
         bool has = receivedPackets.TryPeek(out var result);
@@ -50,15 +27,6 @@ public class NetworkManager : MonoBehaviour
             receivedPackets.Dequeue();
 
         }
-
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            var cp = new ChatPacket();
-            cp.message = "안녕안";
-            cp.sender = Random.Range(1, 10);
-            this.receivedPackets.Enqueue(cp);
-        }
-
     }
 
 
@@ -69,7 +37,7 @@ public class NetworkManager : MonoBehaviour
             case 1000: // opcode = chat message
                 var chatPacket = (ChatPacket)packet;
                 var msg = new NetworkChatReceivedMessage(chatPacket);
-                EventFlow.Broadcast(msg);
+                LD.EventSystem.EventFlow.Broadcast(msg);
                 break;
         }
 

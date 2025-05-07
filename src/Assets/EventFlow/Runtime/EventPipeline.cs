@@ -34,6 +34,7 @@ namespace LD.EventSystem
         /// Listener Hashs
         /// </summary>
         private HashSet<IEventListenerMarker> RegisteredHashMap { get; } = new HashSet<IEventListenerMarker>();
+
         #endregion
         #region Functions
 
@@ -82,10 +83,9 @@ namespace LD.EventSystem
             if (!RegisteredHashMap.Contains(listener)) return;
             // Listeners.Add(listener);
             RegisteredHashMap.Remove(listener);
-            Listeners.Remove(listener); 
-        } 
-        
-        
+            Listeners.Remove(listener);
+        }
+
         /// <summary>
         /// Emit Message to all listeners
         /// </summary> 
