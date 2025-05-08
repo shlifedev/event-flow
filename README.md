@@ -52,6 +52,11 @@ public class YourClass : MonoBehaviour, IEventListener<YourMessage>{
 
 
 ### [Broadcast message](https://github.com/shlifedev/unity-event-system/blob/main/GameEvent/Example/Scripts/GameEntity.cs)
+
+이후 메세지를 리스너에게 통보하세요.
+
+리스너가 수 십개일때는, 메세지에 어떤 리스너가 반응하게 할지에 대한 id값 (sender) 를 추가하는것을 권장합니다. 
+
 ```cs
      EventFlow.Broadcast(new YourMessage(){Message="hi"});
 ```  
