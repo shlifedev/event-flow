@@ -35,7 +35,7 @@ Task.Run(function: () =>
     }
 }).Wait();
 
-LD.EventSystem.EventFlow.Unregister(chatApplication);
+LD.EventSystem.EventFlow.UnRegister(chatApplication);
 
 
 

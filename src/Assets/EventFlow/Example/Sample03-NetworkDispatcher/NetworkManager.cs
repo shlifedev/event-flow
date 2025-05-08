@@ -30,6 +30,10 @@ public class NetworkManager : MonoBehaviour
     }
 
 
+    /*
+     * TODO
+     *
+     */
     void Dispatch(IPacket packet)
     {
         switch (packet.PacketType)
