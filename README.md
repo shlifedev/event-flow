@@ -1,13 +1,14 @@
 # EventFlow
 
-A very easy to use zero-gc game event sending/listen system. 
+이벤트를 송/수신 하는데 전혀 GC(Memory)에 부담없게 설계 된 이벤트 시스템입니다.
 
-- This is useful for decoupling UI code from game code.
+- 매우 쉽게 각 객체간 디커플링을 달성할 수 있습니다.  
 
-- You can listen to any event that happens in your game where it inherits from IEventListener<>.
+- 각 객체의 역할이 확실하기에, 깔끔한 이벤트 시스템을 게임에 적용할 수 있습니다.
 
-- Sending/receiving events does not incur any unnecessary GC. (struct only)
+- 사용하기 매우 쉽습니다.
 
+- 이벤트 리스너 상속과, 등록만 확실히 했다면 휴먼 오류 없는 코드 작성이 가능합니다. (추후 Roslyn으로 코드검사까지 할 예정)
  
 ## [Example](https://github.com/shlifedev/event-flow/tree/main/src/Assets/Example)
 [Movie_001.webm](https://github.com/user-attachments/assets/19ef0dd3-7288-49fa-b3c3-87b2195be071)
@@ -17,21 +18,29 @@ A very easy to use zero-gc game event sending/listen system.
 ## How to use
 
 ### [Declare Your Game Event](https://github.com/shlifedev/event-flow/tree/main/src/Assets/Example/Scripts/Messages/OnEntityDamagedMessage.cs)
-Just inherit the IEventMessage to the structure.
+ IEventMessage를 상속받은 **구조체를** 선언하세요. 그 안에는 원하는 내용을 작성하세요.
 
 ```
- public struct YourEvent : IEventMessage{ 
+ public struct YourMessage : IEventMessage{ 
    public string Message;
  }
 ```
 
 ### [Inherit IEventListenr<T> And Regist](https://github.com/shlifedev/event-flow/tree/main/src/Assets/Example/Scripts/HealthBarUI.cs)
+
+IEventListener<TMessage> 를 상속하세요. 
+
+이후 OnEnable, OnDisable에서 Register, Unregister 메서드를 1회씩 호출해줍니다. (메세지 등록을 위해)
+
+
 ```cs
+
+
 public class YourClass : MonoBehaviour, IEventListener<YourMessage>{
     void OnEnable(){
          EventFlow.Register(this);
     }
-    void OnDestroy(){
+    void OnDisable(){
          EventFlow.UnRegister(this);
     }
 
