@@ -1,1 +1,73 @@
-src/.DS_Store
+# Common files to ignore across all projects
+
+# IDE and editor files
+.idea/
+.idea_modules/
+.vscode/
+.history/
+*.code-workspace
+.fleet/
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+.vs/
+
+# OS specific files
+.DS_Store
+.DS_Store?
+.AppleDouble
+.LSOverride
+Icon
+._*
+.Trashes
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+
+# Logs and temporary files
+logs/
+*.log
+*.log.*
+tmp/
+temp/
+
+# Build outputs and dependencies
+build/
+dist/
+node_modules/
+jspm_packages/
+
+# Environment files
+.env
+.env.*
+
+# Database files
+*.sql
+*.sqlite
+*.db
+
+# Unity specific files (common ones, details in src/.gitignore)
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Bb]uild/
+/[Bb]uilds/
+/[Ll]ogs/
+/[Uu]ser[Ss]ettings/
+
+# .NET specific files (common ones, details in roslyn/.gitignore)
+[Bb]in/
+[Oo]bj/
+*.suo
+*.user
+
+# Meta files
+*.meta
+# But keep Unity meta files in src directory
+!src/**/*.meta
