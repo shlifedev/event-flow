@@ -1,19 +1,14 @@
 # EventFlow
 
- EventFlow는 Unity 혹은 일반 .Net 프로젝트에서 범용적으로 사용하기 쉬운 이벤트 시스템입니다. 
+EventFlow is a Pub-Sub event system that can be easily used universally in Unity or general .NET projects.
 
 
- 
+- Zero GC with Roslyn Source Generator
+- Very Simple
+- Intuitive
 
-- 이벤트를 송/수신 하는데 전혀 GC(Memory)에 부담없게 설계됨 **(roslyn 사용시)**
 
-- 매우 쉽게 각 객체간 디커플링을 달성할 수 있습니다.  
-
-- 각 객체의 역할이 확실하기에, 깔끔한 이벤트 시스템을 게임에 적용할 수 있습니다. 
-
-- 사용하기 매우 쉽습니다.
-
-- 이벤트 리스너 상속과, 등록만 확실히 했다면 휴먼 오류 없는 코드 작성이 가능합니다. (추후 Roslyn으로 코드검사까지 할 예정)
+The following is an example of sending a message to deal damage when a game character is touched.
  
 ## [Example](https://github.com/shlifedev/event-flow/tree/main/src/Assets/Example)
 [Movie_001.webm](https://github.com/user-attachments/assets/19ef0dd3-7288-49fa-b3c3-87b2195be071)
@@ -22,8 +17,7 @@
 
 ## How to use
 
-### [Declare Your Game Event](https://github.com/shlifedev/event-flow/tree/main/src/Assets/Example/Scripts/Messages/OnEntityDamagedMessage.cs)
- IEventMessage를 상속받은 **구조체를** 선언하세요. 그 안에는 원하는 내용을 작성하세요.
+### [Declare Your Game Event](https://github.com/shlifedev/event-flow/tree/main/src/Assets/Example/Scripts/Messages/OnEntityDamagedMessage.cs) 
 
 ```
  public struct YourMessage : IEventMessage{ 
@@ -31,22 +25,24 @@
  }
 ```
 
+
+## Very Simple Usage
+
 ### [Inherit IEventListenr<T> And Regist](https://github.com/shlifedev/event-flow/tree/main/src/Assets/Example/Scripts/HealthBarUI.cs)
 
-IEventListener<TMessage> 를 상속하세요. 
-
-이후 OnEnable, OnDisable에서 Register, Unregister 메서드를 1회씩 호출해줍니다. (메세지 등록을 위해)
+Inherit & Subscribe IEventListener<TMessage> Your Class. 
 
 
 ```cs
 
 
-public class YourClass : MonoBehaviour, IEventListener<YourMessage>{
+[EventFlowListener]
+public partial class YourClass : MonoBehaviour, IEventListener<YourMessage>{
     void OnEnable(){
-         EventFlow.Register(this);
+         RegisterEventListener(this);
     }
     void OnDisable(){
-         EventFlow.UnRegister(this);
+         UnregisterEventListener(this);
     }
 
     public UniTask OnEvent(YourMessage args){
@@ -58,56 +54,18 @@ public class YourClass : MonoBehaviour, IEventListener<YourMessage>{
 
 ### [Broadcast message](https://github.com/shlifedev/unity-event-system/blob/main/GameEvent/Example/Scripts/GameEntity.cs)
 
-이후 메세지를 리스너에게 통보하세요.
-
-리스너가 수 십개일때는, 메세지에 어떤 리스너가 반응하게 할지에 대한 id값 (sender) 를 추가하는것을 권장합니다. 
+And Broadcast Your Message.
 
 ```cs
      EventFlow.Broadcast(new YourMessage(){Message="hi"});
 ```  
 
 
-## Roslyn Source Generator
 
-(I will translate this part later)
+## FAQ
 
- EventFlow에 Roslyn Source Generator 기능이 추가되었습니다. 기존 EventFlow는 Reflection을 사용하여 메세지 리스너를 등록하고 해지했습니다.
+### Why should you use the EventFlowListener Attribute?
 
- 기존 방식을 그대로 사용할 수 있지만 완벽하게 ZeroGC로 동작할 수 있도록 리스너를 최적화 할 수 있습니다.
+Internally, it uses the Roslyn source generator to help you subscribe to and unsubscribe from multiple message types without GC. If you use EventFlow.Register(this); instead, you don't have to use it, but we recommend using it.
 
-### EventFlowListener Attribute 을 사용한 최적화
-
- 기존 리스너에 EventFlowListenerAttribute를 추가하면 Source Generator가 이를 인식하여 최적화된 리스너를 생성합니다. 
- 
- 다음 소스코드는 기존의 IEventListener 방식입니다. 
-
-
- ```cs
- public class ChatApplication : IEventListener<TestUserChatMessage>
-{
-    public void OnEvent(TestUserChatMessage args)
-    {
-        Console.WriteLine($"[{DateTime.Now.ToString("h:mm:ss tt zz")}] chat received \t " + args.ChatMessage);
-    } 
-}
- ```
-
- 그러나 이 리스너를 Register, Unregister 할 때 최초 리스너 타입에 대해 1회 메모리 할당이 일어납니다.
-
- 이를 피하기 위해서 EventFlowListener Attribute를 추가합니다.
-
-```cs
-[EventFlowListener] /* partial modifer를 반드시 추가해야함. */
-public partial class ChatApplication : IEventListener<TestUserChatMessage>
-{
-    public void OnEvent(TestUserChatMessage args)
-    {
-        Console.WriteLine($"[{DateTime.Now.ToString("h:mm:ss tt zz")}] chat received \t " + args.ChatMessage);
-    } 
-}
-```
-
- EventFlowListener Attribute를 사용하려면 사용하려고 하는 class에 대해 partial modifer를 추가해야합니다. 
-
- 이는 추후 EventFlowListener Attribute가 사용되는 리스너에 대해 Roslyn 레벨에서 최적화를 진행하기 위함입니다. 
 
