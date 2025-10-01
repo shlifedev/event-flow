@@ -17,7 +17,7 @@ public class CubeUI : MonoBehaviour, IEventListener<CubeClickMessage>
     }
 
     void OnDisable()
-    {
+    {  
         LD.EventSystem.EventFlow.UnRegister(this); // Unregister
     }
 

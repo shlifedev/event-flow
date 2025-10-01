@@ -21,12 +21,12 @@ namespace Example2
 
         void OnEnable()
         {
-            EventFlow.Register(this); // Event Register
+            EventFlowOptimized.Register(this); // Event Register
         }
 
         void OnDisable()
         {
-            EventFlow.UnRegister(this); // Unregister
+            EventFlowOptimized.UnRegister(this); // Unregister
         }
 
         public void OnEvent(CubeClickMessage args)

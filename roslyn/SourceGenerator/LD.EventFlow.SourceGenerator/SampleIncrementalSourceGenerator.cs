@@ -11,21 +11,29 @@ using Microsoft.CodeAnalysis.Text;
 
 
 namespace LD.EventSystem.SourceGenerator;
-
  
-
-/// <summary>
 /// A sample source generator that creates a custom report based on class properties. The target class should be annotated with the 'Generators.ReportAttribute' attribute.
 /// When using the source code as a baseline, an incremental source generator is preferable because it reduces the performance overhead.
 /// </summary>
 [Generator]
 public class SampleIncrementalSourceGenerator : IIncrementalGenerator
 {
-    public void Initialize(IncrementalGeneratorInitializationContext context)
-    {
-       // PostAttributes.CreateAttributes(context);
-        
 
+    public string WrapNamespace(ListenerGeneratorContext item, string currentSource)
+    {
+        if (!item.ListenerNameSpace.Contains("global namespace"))
+        {
+            return $@"
+namespace {item.ListenerNameSpace} {{
+    {currentSource}
+}}
+";
+        }
+
+        return currentSource;
+    }
+    public void Initialize(IncrementalGeneratorInitializationContext context)
+    { 
         var listenersCollector = context.SyntaxProvider
             .ForAttributeWithMetadataName("LD.EventSystem.Attributes.EventFlowListenerAttribute", (node, token) =>
             {
@@ -47,30 +55,32 @@ public class SampleIncrementalSourceGenerator : IIncrementalGenerator
                 }
                 else
                 {  
-                    string registerCodeLines = string.Join("\n", item.MessageTypesWithFullName.Select(x => $"EventFlowGeneric<{x}>.Register(target);"));
-                    string unregisterCodeLines = string.Join("\n", item.MessageTypesWithFullName.Select(x => $"EventFlowGeneric<{x}>.UnRegister(target);"));
+                    string registerCodeLines = string.Join("\n", item.MessageTypesWithFullName.Select(x => $"LD.EventSystem.EventFlowGeneric<{x}>.Register(this);"));
+                    string unregisterCodeLines = string.Join("\n", item.MessageTypesWithFullName.Select(x => $"LD.EventSystem.EventFlowGeneric<{x}>.UnRegister(this);"));
                     string namespaceLine = null;
                     if (item.ListenerNameSpace != "<global namespace>")
                     {
                         namespaceLine = $"using {item.ListenerNameSpace};";
                     }
 
-                    productionContext.AddSource($"{item.ListenerDisplayName}.EventFlow.g.cs", $@"
-{namespaceLine}
-    namespace LD.EventSystem{{
-public static partial class EventFlow{{
-        public static void Register({item.ListenerName} target)
+
+                    string src = $@"
+  
+public partial class {item.ListenerName} {{
+        public void RegisterEventListener()
         {{ 
             {registerCodeLines}
         }}
 
-        public static void UnRegister({item.ListenerName} target)
+        public void UnregisterEventListener()
         {{ 
           {unregisterCodeLines}
         }}
-}}
-}}
-");
+}} 
+";
+
+                    src = WrapNamespace(item, src);
+                    productionContext.AddSource($"{item.ListenerDisplayName}.EventFlow.g.cs", src);
                 }
             }
         }));

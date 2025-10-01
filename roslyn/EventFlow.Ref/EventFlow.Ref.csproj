@@ -7,17 +7,14 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
-   
-
     <ItemGroup>
-      <ProjectReference Include="..\SourceGenerator\LD.EventFlow.SourceGenerator\LD.EventFlow.SourceGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+        <ProjectReference Include="..\SourceGenerator\LD.EventFlow.SourceGenerator\LD.EventFlow.SourceGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
     </ItemGroup>
 
-
-
-  <ItemGroup>
-    <!-- 모든 .cs 파일 포함 -->
-    <Compile Include="..\..\src\Assets\EventFlow\Runtime\**\*.cs" Link="Runtime\%(RecursiveDir)\%(Filename)%(Extension)" />
-  </ItemGroup>
+    <ItemGroup> 
+        <Compile Include="..\..\src\Packages\EventFlow\Runtime\**\*.cs" Link="Runtime\%(RecursiveDir)\%(Filename)%(Extension)" />
+    </ItemGroup>
+ 
+  
 
 </Project>

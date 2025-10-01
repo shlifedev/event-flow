@@ -10,7 +10,8 @@ public class JustCube : MonoBehaviour
         if (delay > 0) return;
 
         CubeClickMessage msg = new CubeClickMessage(this.gameObject);
-        EventFlow.Broadcast<CubeClickMessage>(msg);
+        
+        EventFlow.Broadcast<CubeClickMessage>(msg); 
         delay = 1;
     }
 

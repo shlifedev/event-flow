@@ -5,6 +5,7 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 
 
+
 public class NetworkManager : MonoBehaviour
 {
     public Queue<IPacket> receivedPackets = new();

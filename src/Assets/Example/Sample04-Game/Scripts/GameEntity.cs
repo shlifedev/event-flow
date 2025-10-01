@@ -25,7 +25,7 @@ namespace Test
             EventFlow.Broadcast(damagedMessage);
             RandomKnockBack(); 
             if (Health <= 0)
-            {
+            { 
                 Die();
             } 
         }
