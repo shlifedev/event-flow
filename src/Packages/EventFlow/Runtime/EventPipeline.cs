@@ -3,21 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 #endif
 namespace LD.EventSystem
-{
-    /*
-     * Todo : 구조상 TMessage에 대해서 구독하고있는 리스너 정보들을 저장함
-     * 1:n 관계로 메세지에 대한 리스너가 여러개일 경우에 대해서도 처리 가능
-     */
-    
-    /*
-     * Todo 개선 가능사항
-     * 현재는 TMessage(1)에 대해 여러 리스너(IEventListenerMarker)들이 등록되어있음
-     * 이를 IEventListener<TMessage>로 변경하여 리스너가 TMessage에 대해 구독하고있음을 명시적으로 알 수 있도록 변경하고
-     * EmitAll 의 루프를 최소화 할 수있음
-     *
-     * 혹은 JobSystem을 사용하여 멀티스레드로 처리할 수 있음
-     */
-    
+{  
     /// <summary>
     /// Objects that send and register game events
     /// </summary>

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using UnityEngine;
 
 namespace LD.EventSystem
 {
@@ -11,6 +12,14 @@ namespace LD.EventSystem
         private static Dictionary<System.Type, List<Action<IEventListenerMarker>>> _unregisterMethodMap = new();
         private static HashSet<System.Type> _ignoredTypes = new();
 
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        static void ResetStatus()
+        {
+            _interFacesMap = new();
+            _registerMethodMap = new();
+            _unregisterMethodMap = new();
+            _ignoredTypes = new();
+        }
         static Type[] GetInterfaces(object target)
         {
             if (!_interFacesMap.ContainsKey(target.GetType()))
