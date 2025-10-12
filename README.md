@@ -8,14 +8,21 @@ EventFlow is a Pub-Sub event system that can be easily used universally in Unity
 - Intuitive
 
 
+ 
+
 The following is an example of sending a message to deal damage when a game character is touched.
  
 ## [Example](https://github.com/shlifedev/event-flow/tree/main/src/Assets/Example)
 [Movie_001.webm](https://github.com/user-attachments/assets/19ef0dd3-7288-49fa-b3c3-87b2195be071)
 
- 
 
-## How to use
+## Installation
+
+- git installiation
+https://github.com/shlifedev/event-flow.git?path=/src/Packages/EventFlow
+
+
+## Usage
 
 ### [Declare Your Game Event](https://github.com/shlifedev/event-flow/tree/main/src/Assets/Example/Scripts/Messages/OnEntityDamagedMessage.cs) 
 
