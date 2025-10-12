@@ -22,7 +22,7 @@
 
 
     <Target Name="CopyDll" AfterTargets="Build">
-        <Copy SourceFiles="$(TargetPath)" DestinationFolder="../../../src/Packages/EventFlow/Roslyn" />
+        <Copy SourceFiles="$(TargetPath)" DestinationFolder="../../../src/Packages/EventFlow/Runtime/Roslyn" />
     </Target>
 
 
