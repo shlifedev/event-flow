@@ -20,13 +20,15 @@ namespace Example2
         Coroutine _managedCoroutine;
 
         void OnEnable()
-        {
-            EventFlowOptimized.Register(this); // Event Register
+        { 
+            this.RegisterEventListener();
+//EventFlowOptimized.Register(this); // Event Register
         }
 
         void OnDisable()
         {
-            EventFlowOptimized.UnRegister(this); // Unregister
+            this.UnregisterEventListener();
+            //EventFlowOptimized.UnRegister(this); // Unregister
         }
 
         public void OnEvent(CubeClickMessage args)

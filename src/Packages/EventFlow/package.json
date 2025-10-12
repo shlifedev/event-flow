@@ -1,5 +1,7 @@
 {
-  "name": "com.mypackage.eventflow",
-  "version": "1.0.0"
-  
+  "name": "com.shlifedev.eventflow",
+  "version": "1.0.0",
+  "displayName": "EventFlow", 
+  "description": "My Pub/Sub System.", 
+  "unity": "2022.3"
 }
