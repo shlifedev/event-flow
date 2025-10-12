@@ -7,7 +7,7 @@
       "dependencies": {},
       "url": "https://package.openupm.com"
     },
-    "com.mypackage.eventflow": {
+    "com.shlifedev.eventflow": {
       "version": "file:EventFlow",
       "depth": 0,
       "source": "embedded",
@@ -290,8 +290,8 @@
       "depth": 1,
       "source": "registry",
       "dependencies": {
-        "com.unity.collections": "2.4.2",
-        "com.unity.burst": "1.7.2"
+        "com.unity.burst": "1.7.2",
+        "com.unity.collections": "2.4.2"
       },
       "url": "https://packages.unity.com"
     },
